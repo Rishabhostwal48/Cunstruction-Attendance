@@ -1,0 +1,395 @@
+{
+  "info": {
+    "name": "Construction Workforce Proof-of-Presence Platform",
+    "description": "API collection for Construction Workforce Proof-of-Presence Platform",
+    "version": "1.0.0"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/auth/register",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"John Doe\",\"phone\":\"+1234567890\",\"password\":\"SecurePass123\",\"role\":\"LABOR\"}"
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/auth/login",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"phone\":\"+1234567890\",\"password\":\"SecurePass123\"}"
+            }
+          }
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/auth/me",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ]
+          }
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/auth/profile",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"John Updated\"}"
+            }
+          }
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/auth/change-password",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"currentPassword\":\"OldPass123\",\"newPassword\":\"NewPass456\"}"
+            }
+          }
+        },
+        {
+          "name": "List Users (Owner)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/auth/users?page=1&limit=10",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sites",
+      "item": [
+        {
+          "name": "Create Site",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/sites",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Downtown Construction\",\"address\":\"123 Main St\",\"latitude\":40.7128,\"longitude\":-74.0060,\"radius\":150}"
+            }
+          }
+        },
+        {
+          "name": "Get All Sites",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/sites?page=1&limit=10",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ]
+          }
+        },
+        {
+          "name": "Get Site by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/sites/{{site_id}}",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ]
+          }
+        },
+        {
+          "name": "Update Site",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/sites/{{site_id}}",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"radius\":200}"
+            }
+          }
+        },
+        {
+          "name": "Assign Worker",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/sites/{{site_id}}/assign-worker",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"userId\":\"worker_user_id\"}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Attendance",
+      "item": [
+        {
+          "name": "Check In",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/attendance/check-in",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "file", "type": "file", "src": "path/to/selfie.jpg" },
+                { "key": "siteId", "type": "text", "value": "{{site_id}}" },
+                { "key": "latitude", "type": "text", "value": "40.7128" },
+                { "key": "longitude", "type": "text", "value": "-74.0060" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Check Out",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/attendance/check-out",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "file", "type": "file", "src": "path/to/selfie.jpg" },
+                { "key": "latitude", "type": "text", "value": "40.7128" },
+                { "key": "longitude", "type": "text", "value": "-74.0060" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Attendance Records",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/attendance?page=1&limit=10",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ]
+          }
+        },
+        {
+          "name": "Daily Attendance Summary",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/attendance/summary/daily?date=2025-01-15",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Progress",
+      "item": [
+        {
+          "name": "Upload Progress",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/progress",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "files", "type": "file", "src": ["path/to/photo1.jpg", "path/to/photo2.jpg"] },
+                { "key": "siteId", "type": "text", "value": "{{site_id}}" },
+                { "key": "note", "type": "text", "value": "Foundation work completed" },
+                { "key": "progressPercentage", "type": "text", "value": "25" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Progress Records",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/progress?page=1&limit=10",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ]
+          }
+        },
+        {
+          "name": "Approve Progress",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/progress/{{progress_id}}/approve",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"approvalNotes\":\"Good work, approved\"}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Driver Activities",
+      "item": [
+        {
+          "name": "Start Duty",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/driver-activities/start-duty",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "file", "type": "file", "src": "path/to/vehicle.jpg" },
+                { "key": "vehicleNumber", "type": "text", "value": "ABC-1234" },
+                { "key": "startMeter", "type": "text", "value": "50000" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "End Duty",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/driver-activities/end-duty",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "file", "type": "file", "src": "path/to/vehicle.jpg" },
+                { "key": "endMeter", "type": "text", "value": "50120" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Driver Activities",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/driver-activities?page=1&limit=10",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "item": [
+        {
+          "name": "Daily Attendance Report",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/reports/attendance/daily?siteId={{site_id}}&date=2025-01-15",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ]
+          }
+        },
+        {
+          "name": "Site Progress Report",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/reports/progress/site?siteId={{site_id}}",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ]
+          }
+        },
+        {
+          "name": "Driver Activity Report",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/reports/driver-activities",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ]
+          }
+        },
+        {
+          "name": "Comprehensive Site Report",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/reports/site/comprehensive?siteId={{site_id}}",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000/api",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "site_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "progress_id",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

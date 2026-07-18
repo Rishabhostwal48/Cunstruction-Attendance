@@ -1,0 +1,33 @@
+{
+  "name": "construction-backend",
+  "version": "1.0.0",
+  "description": "Construction Workforce Proof-of-Presence Platform Backend",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "node --watch src/app.js",
+    "seed": "node scripts/seed.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["construction", "attendance", "proof-of-presence", "geofence"],
+  "author": "Rishabh Ostwal",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
+    "compression": "^1.7.4",
+    "morgan": "^1.10.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^8.0.0",
+    "multer": "^1.4.5-lts.1",
+    "joi": "^17.11.0",
+    "express-async-errors": "^3.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
